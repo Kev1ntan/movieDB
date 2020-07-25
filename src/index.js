@@ -1,13 +1,24 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import { Provider } from 'react-redux';
+import store from './store'
+import 'bootstrap/dist/css/bootstrap.min.css';
 
+require('dotenv').config()
+const loading = (
+  <div className="pt-3 text-center">
+    <div className="sk-spinner sk-spinner-pulse"></div>
+  </div>
+)
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  <Provider store={store}>
+    <Suspense fallback={loading}>
+      <App/>
+    </Suspense>
+  </Provider>,
   document.getElementById('root')
 );
 
