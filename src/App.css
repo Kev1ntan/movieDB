@@ -31,21 +31,41 @@
 
 .Header-menu-right {
   display: flex;
+  align-items: center;
 }
 
 .Header-mr-item {
   font-size: 16px;
   margin-left: 30px;
+  cursor: pointer;
 }
 
 .Container-main{
-  padding: 0px 60px;
+  padding: 0px 40px;
 }
 
 .Main-page-title{
-  font-size: 30px;
+  font-size: 26px;
+  font-weight: bold;
   margin-top: 10px;
   margin-bottom: 10px;
+}
+
+.Person-title{
+  font-size: 30px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.Person-sub-title{
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.Person-sub-title2{
+  font-size: 16px;
+  font-weight: bold;
 }
 
 .dropbtn {
@@ -69,8 +89,48 @@
   z-index: 1;
   border-radius: 8px;
 }
-
-.dropdown-content a {
+.dropdown-search {
+  display: none;
+  position: absolute;
+  right: 0;
+  width: 500px;
+  background-color: white;
+  z-index: 1;
+}
+.Search-list {
+  display: flex;
+  margin-bottom: 20px;
+  border: 1px rgb(189, 174, 174) solid;
+  border-radius: 8px;
+}
+.Search-poster {
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
+  min-width: 100px;
+  height: 130px;
+  background-size: cover;
+  cursor: pointer;
+}
+.Search-title-cont {
+  padding: 10px;
+}
+.Search-title {
+  font-weight: bold;
+  font-size: 16px;
+}
+.Search-title2 {
+  color: #7c7573;
+  font-size: 14px;
+  margin-bottom: 5px;
+}
+.dropdown-search input {
+  color: black !important;
+  padding: 4px 8px;
+  width: 100%;
+  display: block;
+  font-size: 14px;
+}
+.dropdown-content div {
   color: black !important;
   border-radius: 8px;
   padding: 4px 8px;
@@ -79,27 +139,48 @@
   text-decoration: none;
   cursor: pointer;
 }
-
-.dropdown-content a:hover {
+.dropdown-content div:hover {
   background-color: rgb(218, 211, 211);
   text-decoration: none;
 }
-
+.dropdown:hover .dropdown-search {
+  display: block;
+}
 .dropdown:hover .dropdown-content {
   display: block;
 }
 
 .Card-container {
   display: flex;
+  width: 222px;
 }
 
 .Card {
   margin: 5px;
 }
+.Card-deck {
+  width: 212px;
+  border-radius: 8px;
+  position: relative;
+  border: 1px solid rgb(192, 184, 184);
+}
 
 .Poster-container {
   width: 150px;
   position: relative;
+}
+.Card-deck-poster-cont {
+  width: 212px;
+  position: relative;
+  border-radius: 8px;
+  background-size: cover;
+}
+.Card-deck-poster {
+  width: 208px;
+  height: 280px;
+  border-radius: 8px;
+  background-size: cover;
+  cursor: pointer;
 }
 .Recommendation-container {
   width: 250px;
@@ -156,11 +237,15 @@
   height: 40px;
   background-color: black;
   border-radius: 100%;
-  margin: -20px 0 0 10px;
+  margin: -20px 0 -5px 10px;
 }
 
 .Card-title{
   margin-top: 15px;
+}
+
+.Card-title-cont{
+  margin: 5px;
 }
 
 
@@ -172,6 +257,14 @@
 
 .Film-table {
   overflow-x: auto;
+  margin-bottom: 5px;
+}
+
+.Film-list {
+  width: 100%;
+  border: 1px rgb(187, 183, 183) solid;
+  padding: 15px;
+  border-collapse: collapse;
 }
 
 .Film-detail-body {
@@ -235,6 +328,34 @@ li {
   width: 100%;
   height: 540px;
   color: white;
+  background-size: cover;
+}
+
+.Login-cont {
+  padding: 50px;
+}
+
+.Button {
+  background-color: rgb(101, 176, 247);
+  padding: 8px;
+  border-radius: 5px;
+  border: none;
+  color: white;
+  margin-right: 5px;
+  font-weight: bold;
+}
+
+.Input {
+  margin-bottom: 10px;
+  border-radius: 3px;
+  border: 1px rgb(101, 176, 247) solid ;
+  width: 100%;
+  padding: 5px;
+}
+
+.Link {
+  color: rgb(101, 176, 247) !important;
+  cursor: pointer;
 }
 
 .Content {
@@ -259,6 +380,7 @@ li {
 }
 
 .Active {
+  cursor: pointer;
   display: flex;
   align-items: center;
   font-size: 22px;
@@ -268,14 +390,107 @@ li {
 }
 
 .Trailer-cont {
+  text-shadow: 2px 2px 3px white;
   display: flex;
   flex-direction: column;
   justify-content: center;
   padding: 0px 20px 40px 20px;
   height: 400px;
   background-size: cover;
+  background-image: linear-gradient( rgba(0,0,0,0.7), rgba(0, 0, 0, 0.7) );
 }
 
+.Filter-cont {
+  padding-top: 10px;
+}
+.Filter-genres-cont {
+  border-radius: 5px;
+  border: 1px rgb(139, 135, 135) solid;
+  margin-bottom: 5px;
+  text-align: center;
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(75px, 1fr));
+  grid-gap: 0.5rem;
+  padding: 2px;
+  align-items: center;
+}
+
+.Genre-item {
+  border-radius: 7px;
+  font-size: 14px;
+  border: 1px black solid;
+  cursor: pointer;
+  width: 85px;
+}
+
+.Genre-item:hover {
+  background-color: gray !important;
+}
+
+.Util-title {
+  font-size: 20px;
+  font-weight: bold;
+  margin: 3px;
+}
+.Card-deck-cont {
+  width: 100%;
+  margin: 10px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(212px, 1fr));
+  grid-gap: 0.8rem;
+}
+.Person-cont {
+  display: flex;
+  margin: 25px;
+}
+.Person-cont-left {
+  min-width: 340px;
+
+}
+.Person-cont-right {
+  width: 100%;
+}
+.Util-cont {
+  margin: 10px;
+  min-width: 190px;
+}
+.Util-cont2 {
+  width: 100%;
+  margin: 10px;
+}
+.Page-cont {
+  margin: 20px;
+}
+.Page-body {
+  display: flex;
+}
+.Filter-button-cont {
+  display: flex;
+}
+.Reset-button {
+  background-color: red;
+  color: white;
+  padding: 5px;
+  text-align: center;
+  width: 60px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+.Filter-button {
+  margin: 0px 20px;
+  background-color: rgb(35, 211, 49);
+  color: white;
+  padding: 5px;
+  text-align: center;
+  width: 60px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+.Reset-button:hover {
+  color: black;
+  background-color: greenyellow;
+}
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

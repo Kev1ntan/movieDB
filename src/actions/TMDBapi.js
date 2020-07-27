@@ -9,8 +9,41 @@ export const getPopularMovies = () => {
         return data
       })
       .then(movies=>{
-        // console.log(movies)
         dispatch({ type: 'setPopularMovies', payload: movies.results})
+      })
+      .catch(error=>{
+        console.log(error.response)
+      })    
+  }
+}
+export const getMovieGenres = () => {
+  return dispatch =>{
+    axios({
+      url: `${process.env.REACT_APP_URL}genre/movie/list?api_key=${process.env.REACT_APP_API_KEY}`,
+      method: 'GET',
+    })
+      .then(({data})=>{
+        return data
+      })
+      .then(({genres})=>{
+        dispatch({ type: 'setMovieGenres', payload: genres})
+      })
+      .catch(error=>{
+        console.log(error.response)
+      })    
+  }
+}
+export const getTVGenres = () => {
+  return dispatch =>{
+    axios({
+      url: `${process.env.REACT_APP_URL}genre/tv/list?api_key=${process.env.REACT_APP_API_KEY}`,
+      method: 'GET',
+    })
+      .then(({data})=>{
+        return data
+      })
+      .then(({genres})=>{
+        dispatch({ type: 'setTvGenres', payload: genres})
       })
       .catch(error=>{
         console.log(error.response)
@@ -27,8 +60,126 @@ export const getPopularTv = () => {
         return data
       })
       .then(TVs=>{
-        // console.log(TVs)
         dispatch({ type: 'setPopularTVs', payload: TVs.results})
+      })
+      .catch(error=>{
+        console.log(error.response)
+      })    
+  }
+}
+export const getPlayingMovies = () => {
+  return dispatch =>{
+    axios({
+      url: `${process.env.REACT_APP_URL}movie/now_playing?api_key=${process.env.REACT_APP_API_KEY}`,
+      method: 'GET',
+    })
+      .then(({data})=>{
+        return data
+      })
+      .then(movies=>{
+        dispatch({ type: 'setPlayingMovies', payload: movies.results})
+      })
+      .catch(error=>{
+        console.log(error.response)
+      })    
+  }
+}
+export const getAiringTv = () => {
+  return dispatch =>{
+    axios({
+      url: `${process.env.REACT_APP_URL}tv/airing_today?api_key=${process.env.REACT_APP_API_KEY}`,
+      method: 'GET',
+    })
+      .then(({data})=>{
+        return data
+      })
+      .then(TVs=>{
+        dispatch({ type: 'setAiringTVs', payload: TVs.results})
+      })
+      .catch(error=>{
+        console.log(error.response)
+      })    
+  }
+}
+export const getUpcomingMovies = () => {
+  return dispatch =>{
+    axios({
+      url: `${process.env.REACT_APP_URL}movie/upcoming?api_key=${process.env.REACT_APP_API_KEY}`,
+      method: 'GET',
+    })
+      .then(({data})=>{
+        return data
+      })
+      .then(movies=>{
+        dispatch({ type: 'setUpcomingMovies', payload: movies.results})
+      })
+      .catch(error=>{
+        console.log(error.response)
+      })    
+  }
+}
+export const getOnTv = () => {
+  return dispatch =>{
+    axios({
+      url: `${process.env.REACT_APP_URL}tv/on_the_air?api_key=${process.env.REACT_APP_API_KEY}`,
+      method: 'GET',
+    })
+      .then(({data})=>{
+        return data
+      })
+      .then(TVs=>{
+        dispatch({ type: 'setOnTVs', payload: TVs.results})
+      })
+      .catch(error=>{
+        console.log(error.response)
+      })    
+  }
+}
+export const getTopRatedMovies = () => {
+  return dispatch =>{
+    axios({
+      url: `${process.env.REACT_APP_URL}movie/top_rated?api_key=${process.env.REACT_APP_API_KEY}`,
+      method: 'GET',
+    })
+      .then(({data})=>{
+        return data
+      })
+      .then(movies=>{
+        dispatch({ type: 'setTopRatedMovies', payload: movies.results})
+      })
+      .catch(error=>{
+        console.log(error.response)
+      })    
+  }
+}
+export const getTopRatedTv = () => {
+  return dispatch =>{
+    axios({
+      url: `${process.env.REACT_APP_URL}tv/top_rated?api_key=${process.env.REACT_APP_API_KEY}`,
+      method: 'GET',
+    })
+      .then(({data})=>{
+        return data
+      })
+      .then(TVs=>{
+        dispatch({ type: 'setTopRatedTVs', payload: TVs.results})
+      })
+      .catch(error=>{
+        console.log(error.response)
+      })    
+  }
+}
+export const getPopularPeople = () => {
+  return dispatch =>{
+    axios({
+      url: `${process.env.REACT_APP_URL}person/popular?api_key=${process.env.REACT_APP_API_KEY}`,
+      method: 'GET',
+    })
+      .then(({data})=>{
+        return data
+      })
+      .then(people=>{
+        dispatch({ type: 'setPopularPerson', payload: people.results})
       })
       .catch(error=>{
         console.log(error.response)
@@ -38,14 +189,13 @@ export const getPopularTv = () => {
 export const getFreeMovies = () => {
   return dispatch =>{
     axios({
-      url: `${process.env.REACT_APP_URL}discover/movie?api_key=${process.env.REACT_APP_API_KEY}`,
+      url: `${process.env.REACT_APP_URL}discover/movie?api_key=${process.env.REACT_APP_API_KEY}&sort_by=revenue.desc`,
       method: 'GET',
     })
       .then(({data})=>{
         return data
       })
       .then(movies=>{
-        // console.log(movies)
         dispatch({ type: 'setFreeMovies', payload: movies.results})
       })
       .catch(error=>{
@@ -56,14 +206,13 @@ export const getFreeMovies = () => {
 export const getFreeTv = () => {
   return dispatch =>{
     axios({
-      url: `${process.env.REACT_APP_URL}discover/tv?api_key=${process.env.REACT_APP_API_KEY}`,
+      url: `${process.env.REACT_APP_URL}discover/tv?api_key=${process.env.REACT_APP_API_KEY}&sort_by=revenue.desc`,
       method: 'GET',
     })
       .then(({data})=>{
         return data
       })
       .then(TVs=>{
-        // console.log(TVs)
         dispatch({ type: 'setFreeTVs', payload: TVs.results})
       })
       .catch(error=>{
@@ -78,7 +227,6 @@ export const getTrailerMovies = () => {
       method: 'GET',
     })
       .then(({data})=>{
-        console.log(data)
         let promises = []
         data.results.map(arr=>promises.push(
           axios({
@@ -89,12 +237,10 @@ export const getTrailerMovies = () => {
               return resp.data
             })
         ))
-        console.log(promises)
         return Promise.all(promises)
         // return data
       })
       .then(movies=>{
-        console.log(movies)
         let filter = movies.filter(movie=>movie.videos.results.length !== 0)
         dispatch({ type: 'setTrailerMovies', payload: filter})
       })
@@ -110,7 +256,6 @@ export const getTrailerTv = () => {
       method: 'GET',
     })
       .then(({data})=>{
-        console.log(data)
         let promises = []
         data.results.map(arr=>promises.push(
           axios({
@@ -121,13 +266,10 @@ export const getTrailerTv = () => {
               return resp.data
             })
         ))
-        console.log(promises)
         return Promise.all(promises)
       })
       .then(TVs=>{
-        console.log(TVs)
         let filter = TVs.filter(movie=>movie.videos.results.length !== 0)
-        // console.log(TVs)
         dispatch({ type: 'setTrailerTVs', payload: filter})
       })
       .catch(error=>{
@@ -145,7 +287,6 @@ export const getTrendingToday = () => {
         return data
       })
       .then(trending=>{
-        // console.log(trending)
         dispatch({ type: 'setTrendingDay', payload: trending.results})
       })
       .catch(error=>{
@@ -163,7 +304,6 @@ export const getTrendingWeek = () => {
         return data
       })
       .then(trending=>{
-        // console.log(trending)
         dispatch({ type: 'setTrendingWeek', payload: trending.results})
       })
       .catch(error=>{
@@ -181,7 +321,6 @@ export const getMovieDetails = (id) => {
         return data
       })
       .then(film=>{
-        console.log(film)
         dispatch({ type: 'setFilm', payload: film})
       })
       .catch(error=>{
@@ -189,7 +328,40 @@ export const getMovieDetails = (id) => {
       })    
   }
 }
-
+export const getPersonDetails = (id) => {
+  return dispatch =>{
+    axios({
+      url: `${process.env.REACT_APP_URL}person/${id}?api_key=${process.env.REACT_APP_API_KEY}&append_to_response=combined_credits`,
+      method: 'GET',
+    })
+      .then(({data})=>{
+        return data
+      })
+      .then(person=>{
+        dispatch({ type: 'setPerson', payload: person})
+      })
+      .catch(error=>{
+        console.log(error.response)
+      })    
+  }
+}
+export const getSearchFilm = (query) => {
+  return dispatch =>{
+    axios({
+      url: `${process.env.REACT_APP_URL}search/multi?api_key=${process.env.REACT_APP_API_KEY}&query=${query}`,
+      method: 'GET',
+    })
+      .then(({data})=>{
+        return data
+      })
+      .then(search=>{
+        dispatch({ type: 'setSearch', payload: search.results})
+      })
+      .catch(error=>{
+        console.log(error.response)
+      })    
+  }
+}
 export const getTvDetails = (id) => {
   return dispatch =>{
     axios({
@@ -200,7 +372,6 @@ export const getTvDetails = (id) => {
         return data
       })
       .then(film=>{
-        console.log(film)
         dispatch({ type: 'setFilm', payload: film})
       })
       .catch(error=>{

@@ -1,9 +1,9 @@
-import React, { lazy, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import {useDispatch, useSelector} from'react-redux'
 import {useHistory, useParams} from 'react-router-dom'
 import {getMovieDetails,getTvDetails} from '../../actions/TMDBapi'
 
-const MovieDetails = () => {
+const FilmDetails = () => {
   let dispatch = useDispatch()
   let history = useHistory()
   let {id,type} = useParams()
@@ -11,16 +11,16 @@ const MovieDetails = () => {
   useEffect(()=>{
     if(type === "movie"){
       dispatch(getMovieDetails(id))
-    }else{
+    }else if(type === "tv"){
       dispatch(getTvDetails(id))
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   },[])
-  console.log(film)
   function refreshPage(filmId){
     if(type === "movie"){
       history.push(`/${type}/details/${filmId}`)
       dispatch(getMovieDetails(filmId))
-    }else{
+    }else if(type === "tv"){
       history.push(`/${type}/details/${filmId}`)
       dispatch(getTvDetails(filmId))
     }
@@ -31,17 +31,17 @@ const MovieDetails = () => {
       {
         film === "" ? "loading..." :
       <div>
-        <div className="Film-Container" style={{background: `linear-gradient( rgba(0,0,0,0.7), rgba(0, 0, 0, 0.7) ),url(https://image.tmdb.org/t/p/original${film.backdrop_path})`}}>
+        <div className="Film-Container" style={{backgroundImage: `linear-gradient( rgba(0,0,0,0.7), rgba(0, 0, 0, 0.7) ),url(https://image.tmdb.org/t/p/original${film.backdrop_path})`}}>
           <div className="Film-poster" style={{backgroundImage:`url(https://image.tmdb.org/t/p/original${film.poster_path})`}}>
           </div>
           <div>
             <div className="Film-title">
               <strong>
-                {`${film.title} (${film.release_date.substr(0,4)})`}
+                {`${film.title ? film.title : film.name} (${film.release_date ? film.release_date.substr(0,4) : film.first_air_date.substr(0,4)})`}
               </strong>
             </div>
             <div>
-              {`${film.genres.reduce((a,b)=> {return a + " | " + b.name + " |"},"")} ${film.runtime}m`}
+              {`${film.genres.reduce((a,b)=> {return a + " | " + b.name + " |"},"")} ${film.runtime ? film.runtime : film.episode_run_time[0]}m`}
             </div>
             <br></br>
             <div className="Film-tag"><em>{film.tagline}</em></div>
@@ -65,7 +65,7 @@ const MovieDetails = () => {
                     film.videos.results.map(video=>{
                       return(
                         <td>
-                          <iframe className="Film-trailer" src={`https://www.youtube.com/embed/${video.key}?controls=1`}>
+                          <iframe title={video.key} className="Film-trailer" src={`https://www.youtube.com/embed/${video.key}?controls=1`}>
                           </iframe>
                         </td>
                       )
@@ -101,9 +101,13 @@ const MovieDetails = () => {
             <div className="Film-detail-right">
               <div className="Main-page-title">Keywords</div>
               { 
-                film.keywords.keywords.length === 0 ? 
-                "No keyword" :
+                film.keywords.keywords ? 
+                
                 film.keywords.keywords.map(keyword=>{
+                  return(
+                    <div className="Keyword">{keyword.name}</div>
+                  )
+                }) : film.keywords.results.map(keyword=>{
                   return(
                     <div className="Keyword">{keyword.name}</div>
                   )
@@ -118,4 +122,4 @@ const MovieDetails = () => {
   )
 }
 
-export default MovieDetails
+export default FilmDetails

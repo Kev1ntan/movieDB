@@ -8,10 +8,10 @@ const MainPage = () => {
   return (
     <>
       <div className="Container-main">
-        {/* <PopularFilm/> */}
-        {/* <FreeFilm/> */}
+        <PopularFilm/>
+        <FreeFilm/>
         <TrailerFilm/>
-        {/* <TrendingFilm/> */}
+        <TrendingFilm/>
       </div>
     </>
   )

@@ -7,6 +7,7 @@ const english = {
   people: "People",
   topRated: "Top Rated",
   popular: "Popular",
+  search: "Search",
   upComing: "Upcoming",
   support: "Support",
   nowPlaying: "Now Playing",
@@ -22,6 +23,7 @@ const indonesia = {
   movies: "Film",
   TV: "Acara TV",
   onTV: "di TV",
+  search: "Cari",
   leaderboard: "Papan Peringkat",
   topRated: "Peringkat Teratas",
   airingToday: "Tayang hari ini",
@@ -43,9 +45,14 @@ const initialState = {
   selectedPopularFilm: "movie",
   selectedTrendingFilm: "day",
   film: "",
+  person: "",
+  playingMovies: [],
+  upcomingMovies: [],
+  menuFilms: [],
   trending: [],
   trailers: [],
   popularMovies: [],
+  copyFilms: [],
   popularTVs: [],
   freeMovies: [],
   freeTVs: [],
@@ -53,6 +60,15 @@ const initialState = {
   trailerTVs: [],
   trendingWeek: [],
   trendingDay: [],
+  movieGenres: [],
+  tvGenres: [],
+  selectedGenres: [],
+  topRatedMovies: [],
+  popularPeople: [],
+  topRatedTVs: [],
+  airingTVs: [],
+  onTVs: [],
+  searchFilm: [],
 }
 
 const changeState = (state = initialState, action) => {
@@ -75,6 +91,8 @@ const changeState = (state = initialState, action) => {
       }else{
         return {...state,freeFilm: state.freeTVs,selectedFreeFilm: "tv"}
       }
+    case 'resetFilter':
+      return {...state, menuFilms: state.copyFilms, selectedGenres: []}
     case 'changeTrailerSelected':
       if(action.payload === "movie"){
         return {...state,trailers: state.trailerMovies,selectedTrailerFilm: "movie"}
@@ -87,10 +105,46 @@ const changeState = (state = initialState, action) => {
       }else{
         return {...state,trending: state.trendingWeek,selectedTrendingFilm: "week"}
       }
+    case 'changeSelectedGenres':
+      if(state.selectedGenres.filter(genres=> genres === action.payload).length !== 0){
+        let newGenres = state.selectedGenres.filter(genres=> genres !== action.payload)
+        return {...state,selectedGenres: newGenres}
+      }else{
+        return {...state,selectedGenres: [...state.selectedGenres,action.payload]}
+      }
+    case 'filter':
+      let newFilms = []
+      for(let i = 0; i < state.copyFilms.length; i++){
+        for(let j = 0; j < state.selectedGenres.length; j++){
+          if(state.copyFilms[i].genre_ids.filter(gen => gen === state.selectedGenres[j]).length !== 0){
+            newFilms.push(state.copyFilms[i])
+            break;
+          }
+        }
+      }
+      return{...state, menuFilms: newFilms}
     case 'setPopularMovies':
-      return {...state, popularMovies:action.payload}
+      return {...state, popularMovies:action.payload, copyFilms:action.payload, menuFilms:action.payload}
+    case 'setPlayingMovies':
+      return {...state, playingMovies:action.payload, copyFilms:action.payload, menuFilms:action.payload}
+    case 'setPopularPerson':
+      return {...state, popularPeople:action.payload}
+    case 'setUpcomingMovies':
+      return {...state, upcomingMovies:action.payload, copyFilms:action.payload, menuFilms:action.payload}
+    case 'setTopRatedMovies':
+      return {...state, topRatedMovies:action.payload, copyFilms:action.payload, menuFilms:action.payload}
+    case 'setTopRatedTVs':
+      return {...state, topRatedTVs:action.payload, copyFilms:action.payload, menuFilms:action.payload}
+    case 'setAiringTVs':
+      return {...state, airingTVs:action.payload, copyFilms:action.payload, menuFilms:action.payload}
+    case 'setOnTVs':
+      return {...state, onTVs:action.payload, copyFilms:action.payload, menuFilms:action.payload}
+    case 'setMovieGenres':
+      return {...state, movieGenres:action.payload}
+    case 'setTvGenres':
+      return {...state, tvGenres:action.payload}
     case 'setPopularTVs':
-      return {...state, popularTVs:action.payload}
+      return {...state, popularTVs:action.payload, copyFilms:action.payload, menuFilms:action.payload}
     case 'setFreeMovies':
       return {...state, freeMovies:action.payload}
     case 'setFreeTVs':
@@ -105,6 +159,10 @@ const changeState = (state = initialState, action) => {
       return {...state, trendingWeek:action.payload}
     case 'setFilm':
       return {...state, film:action.payload}
+    case 'setPerson':
+      return {...state, person:action.payload}
+    case 'setSearch':
+      return {...state, searchFilm:action.payload}
     default:
       return state
   }

@@ -1,4 +1,4 @@
-import React, { lazy, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import {useDispatch, useSelector} from'react-redux'
 import {useHistory} from 'react-router-dom'
 import {getFreeMovies,getFreeTv} from '../../actions/TMDBapi'
@@ -16,11 +16,8 @@ const FreeFilm = () => {
     setTimeout(()=>{
       dispatch({type:"changeFreeSelected", payload:"movie"})
     },2000)
-    return ()=>{
-
-    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   },[])
-  console.log(films)
   return (
     <>
       {films.length === 0 ? 
@@ -50,8 +47,10 @@ const FreeFilm = () => {
                             {film.vote_count === 0 ? "NR": <div>{film.vote_average*10}<sup>%</sup></div>}
                           </div>
                         </div>
-                        <div className="Card-title"><strong>{film.title}</strong></div>
-                        <div>{moment(film.release_date).format("MMM Do, YYYY")}</div>
+                        <div className="Card-title-cont">
+                          <div className="Card-title"><strong>{film.title}</strong></div>
+                          <div>{moment(film.release_date).format("MMM Do, YYYY")}</div>
+                        </div>
                       </td>
                       )
                     })

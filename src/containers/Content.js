@@ -1,6 +1,5 @@
 import React, { Suspense } from 'react'
 import {
-  Redirect,
   Route,
   Switch
 } from 'react-router-dom'
@@ -31,7 +30,6 @@ const Content = () => {
                 )} />
             )
           })}
-          {/* <Redirect from="/" to="/dashboard" /> */}
         </Switch>
       </Suspense>
     </main>
